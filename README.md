@@ -1,2 +1,2 @@
 # james-beer
-Projeto para estudo de Spring com thymeleaf
+Projeto para estudo de Spring com thymeleaf - Catálogo de cervejas
