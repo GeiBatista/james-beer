@@ -1,0 +1,229 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.mrbatista</groupId>
+  <artifactId>james-beer</artifactId>
+  
+  <version>1.0.0-SNAPSHOT</version>
+ 
+  <packaging>war</packaging>
+
+<properties>
+		<project.buid.sourceEncoding>UTF-8</project.buid.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+
+		<java.version>1.8</java.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<hibernate.version>5.2.18.Final</hibernate.version>
+		<flyway-maven-plugin.version>5.2.4</flyway-maven-plugin.version>
+		<mysql-connector-java.version>5.1.49</mysql-connector-java.version>
+
+		<!-- Spring MVC-->
+		<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
+
+		<!-- Servlet API-->
+		<servlet.version>3.1.0</servlet.version>
+
+		<!-- Thymeleaf -->
+		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+		
+		<!-- Hibernate Validation -->
+		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+		
+		<!-- jabx api -->
+		<jaxb-api.version>2.3.1</jaxb-api.version>
+		
+		<!-- Thymeleaf - Layout Dialect -->
+		<thymeleaf-layout-dialect.version>3.0.0</thymeleaf-layout-dialect.version>	
+		
+		<!-- Logging -->
+		<log4j.version>2.6</log4j.version>		
+		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
+	
+	<!--		JPA / Hibernate-->
+	<hibernate.version>5.1.0.Final</hibernate.version>	
+	
+	<!-- Spring Data JPA -->
+	<spring-data-jpa.version>1.10.2.Final</spring-data-jpa.version>	
+
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version> <!--
+				Certifique-se de usar a versão mais recente -->
+				<configuration>
+					<source>${java.version}</source> <!-- Versão do Java usada no
+					código-fonte -->
+					<target>${java.version}</target> <!-- Versão do Java para o
+					bytecode gerado -->
+				</configuration>
+			</plugin>
+						
+			<plugin>
+			    <groupId>org.flywaydb</groupId>
+			    <artifactId>flyway-maven-plugin</artifactId>
+			    <version>${flyway-maven-plugin.version}</version>
+			    <configuration>
+			        <driver>com.mysql.jdbc.Driver</driver>
+			        <url>jdbc:mysql://localhost:3306/james_beer?useSSL=false</url>
+			        <user>root</user>
+			        <password>root</password>
+			    </configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring-framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- Spring MVC-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Servlet API-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Thymeleaf -->
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>${thymeleaf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
+			<version>${thymeleaf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+<!--		 https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>${hibernate-validator.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- JAXB para rodar com java 8-->
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		     <version>${jaxb-api.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.sun.activation</groupId>
+		    <artifactId>javax.activation</artifactId>
+		    <version>1.2.0</version>
+		</dependency>	
+		
+		<!-- Thymeleaf - Layout Dialect -->
+		<dependency>
+		    <groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		    <version>${thymeleaf-layout-dialect.version}</version>
+		</dependency>
+		
+		<!-- Logging -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		    <version>${log4j.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-api</artifactId>
+		    <version>${log4j.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>${log4j.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>jcl-over-slf4j</artifactId>
+		    <version>${jcl-over-slf4j.version}</version>
+		</dependency>
+		
+<!--		JPA / Hibernate-->
+	    <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+			 <scope>compile</scope>
+		</dependency>
+		
+<!--		Hibernate - Java 8 support-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-java8</artifactId>
+			<version>${hibernate.version}</version>
+			 <scope>compile</scope>
+		</dependency>
+		
+		<!-- MySQL Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- Spring Data JPA -->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.data</groupId>-->
+<!--			<artifactId>spring-data-jpa</artifactId>-->
+<!--			<version>${spring-data-jpa.version}</version>-->
+<!--			<scope>runtime</scope>-->
+<!--		</dependency>		-->
+		
+	</dependencies>
+	
+	<repositories>
+	    <repository>
+	        <id>sonatype-nexus-snapshots</id>
+	        <name>Sonatype Nexus Snapshots</name>
+	        <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+	        <snapshots>
+	            <enabled>true</enabled>
+	        </snapshots>
+	    </repository>
+	</repositories>
+	
+</project>

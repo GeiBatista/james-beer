@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+/*
+##################
+# UTILIDADES
+##################
+*/
+
+.jb-glyphicon-large{
+	font-size: 18px;
+}
+
+/*
+##################
+# COMPONENTES
+##################
+*/
+
+/* Field Action */
+
+.jb-field-action{
+	display: flex;
+}
+
+.jb-field-action__icon{
+	margin: 6px 0 0 5px;
+}
