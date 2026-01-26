@@ -6,13 +6,14 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.mrbatista.jamesbeer.config.JPAConfig;
+import com.mrbatista.jamesbeer.config.ServiceConfig;
 import com.mrbatista.jamesbeer.config.WebConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] {JPAConfig.class};
+		return new Class<?>[] {JPAConfig.class, ServiceConfig.class};
 	}
 
 	@Override

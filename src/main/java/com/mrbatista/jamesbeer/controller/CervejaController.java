@@ -18,12 +18,16 @@ import com.mrbatista.jamesbeer.model.Origem;
 import com.mrbatista.jamesbeer.model.Sabor;
 import com.mrbatista.jamesbeer.repository.Cervejas;
 import com.mrbatista.jamesbeer.repository.Estilos;
+import com.mrbatista.jamesbeer.service.CadastroCervejaService;
 
 @Controller
 public class CervejaController {
 	
 	private static final Logger  logger = LoggerFactory.getLogger(CervejaController.class);
 	
+	
+	@Autowired 
+	CadastroCervejaService cadastroCervejaService;
 	@Autowired Cervejas cervejas;
 	@Autowired Estilos estilos;
 	
@@ -38,15 +42,11 @@ public class CervejaController {
 	
 	@PostMapping("/cervejas/novo")
 	private ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
-//		if(result.hasErrors()) {
-//		return novo(cerveja);
-//		}
-		
+		if(result.hasErrors()) {
+		return novo(cerveja);
+		}
+		cadastroCervejaService.salvar(cerveja);
 		attributes.addFlashAttribute("mensagem", "cerveja salva com sucesso!");
-		System.out.println("SKU: " +  cerveja.getSku());
-		System.out.println("Sabor: " +  cerveja.getSabor());
-		System.out.println("Origem: " +  cerveja.getOrigem());
-		System.out.println("Estilos: " +  cerveja.getEstilo());
 		return new ModelAndView("redirect:/cervejas/novo");
 	}
 	
