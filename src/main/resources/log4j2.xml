@@ -17,6 +17,8 @@
     </Appenders>
     
     <Loggers>
+    
+    	<logger name="org.mrbatista.jamesbeer" level="error"/>
     	<logger name="org.hibernate.SQL" level="debug"/>
     	
         <Root level="error">
