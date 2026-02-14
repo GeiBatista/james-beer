@@ -21,19 +21,17 @@
 			</div>
 
 			<div class="container-fluid">
-
-				<!-- 	<div class="alert  alert-danger  alert-dismissible" role="alert"> -->
-				<!-- 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-				<!-- 		<i class="fa  fa-exclamation-circle"></i> Já existe um produto com o nome informado. -->
-				<!-- 	</div> -->
-
-				<form method="POST" th:object="${estilo}"
-					class="form-vertical  js-form-loading">
+			
+				<th:block th:include="fragments/MensagensSucesso"></th:block>
+				
+				<form method="POST" th:object="${estilo}" class="form-vertical  js-form-loading">
+				
+				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
 
 					<div class="row">
-						<div class="col-sm-12  form-group">
-							<label for="nome">Nome</label> 
-							<input id="nome" type="text" class="form-control" />
+						<div class="col-sm-12  form-group" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+							<label for="nome" class="control-label">Nome</label> 
+							<input id="nome" type="text" th:field="*{nome}" class="form-control" />
 						</div>
 					</div>
 					

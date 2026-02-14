@@ -17,9 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mrbatista.jamesbeer.model.Cerveja;
 import com.mrbatista.jamesbeer.repository.Cervejas;
+import com.mrbatista.jamesbeer.repository.Estilos;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = true)
+@EnableJpaRepositories(basePackageClasses = {Cervejas.class, Estilos.class}, enableDefaultTransactions = true)
 @EnableTransactionManagement
 public class JPAConfig {
 	
