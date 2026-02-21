@@ -20,17 +20,18 @@ import com.mrbatista.jamesbeer.service.CadastroEstiloService;
 import com.mrbatista.jamesbeer.service.exception.NomeEstiloJaCadastradoException;
 
 @Controller
+@RequestMapping("/estilos")
 public class EstilosController {
 	
 	@Autowired
 	CadastroEstiloService cadastroEstiloService;
 
-	@RequestMapping("/estilos/novo")
+	@RequestMapping("/novo")
 	public String novo(Estilo estilo) {
 		return "estilo/CadastroEstilo";
 	}
 	
-	@PostMapping("/estilos/novo")
+	@PostMapping("/novo")
 	public String cadastrar(@Valid Estilo estilo, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			return novo(estilo);
@@ -46,7 +47,7 @@ public class EstilosController {
 		return "redirect:/estilos/novo";
 	}
 	
-	@RequestMapping(value = "/estilos", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result) {
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
