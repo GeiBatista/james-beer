@@ -1,7 +1,22 @@
+JamesBeer = JamesBeer || {};
+
+JamesBeer.MaskMoney = (function() {
+
+    function MaskMoney() {
+        this.decimal = $('.js-decimal');
+        this.plain = $('.js-plain');
+
+    }
+
+    MaskMoney.prototype.enable = function() {
+        this.decimal.maskMoney({ decimal: ',', thousands: '.' });
+        this.plain.maskMoney({ precision: 0, thousands: '.' });
+    }
+    return MaskMoney;
+
+})();
+
 $(function() {
-  var decimal =  $('.js-decimal');
-  decimal.maskMoney();
- 
- var plain = $('.js-plain');
- plain.maskMoney({ precision: 0});
- });
+    var maskMoney = new JamesBeer.MaskMoney();
+    maskMoney.enable();
+});
