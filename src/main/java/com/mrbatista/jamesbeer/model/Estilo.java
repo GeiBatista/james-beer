@@ -26,7 +26,7 @@ public class Estilo implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@NotEmpty(message = "O nome é obrigatório")
+	@NotBlank(message = "O nome é obrigatório")
 	@Size(min=1, max = 50, message = "A Descrição deve ter entre 1 e 50 caracteres")
 	private String nome;
 	
