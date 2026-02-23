@@ -8,6 +8,7 @@ import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.standard.StandardDialect;
 
 import com.mrbatista.jamesbeer.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
+import com.mrbatista.jamesbeer.thymeleaf.processor.MessageElementTagProcessor;
 
 public class JamesBeerDialect extends AbstractProcessorDialect {
 
@@ -19,6 +20,7 @@ public class JamesBeerDialect extends AbstractProcessorDialect {
 	public Set<IProcessor> getProcessors(String dialectPrefix) {
 		final Set<IProcessor> processadores = new HashSet<>();
 		processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));
+		processadores.add(new MessageElementTagProcessor(dialectPrefix));
 		return processadores;
 	}
 
