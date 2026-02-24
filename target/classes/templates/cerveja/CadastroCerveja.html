@@ -29,6 +29,9 @@
 				
 				<div class="row">
                     <div class="col-sm-12  form-group">
+	                    <input id="foto" type="hidden" th:field="*{foto}"/>
+	                    <input id="contentType" type="hidden" th:field="*{contentType}"/>
+	                    
                         <label for="foto" class="control-label">Foto</label>
                        
                        <div id="upload-drop" class="bw-upload">
@@ -50,7 +53,11 @@
             type: 'json',
             filelimit: 1,
             allow: '*.(jpg|jpeg|png)',
-            action: '/james-beer/fotos'
+            action: '/james-beer/fotos',
+            complete: function(response) {
+                $('input[name=foto]').val(response.nome);
+                $('input[name=contentType]').val(response.contentType);
+            },
        };
        
        UIkit.uploadSelect($('#upload-select'), settings);
