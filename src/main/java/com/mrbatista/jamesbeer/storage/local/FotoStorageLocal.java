@@ -30,6 +30,31 @@ public class FotoStorageLocal implements FotoStorage {
 		criarPastas();
 	}
 
+
+	@Override
+	public String salvarTemporariamente(MultipartFile[] files) {
+		String novoNome = null;
+		if(files != null && files.length > 0) {
+			MultipartFile arquivo = files[0];
+			novoNome = renomearArquivo(arquivo.getOriginalFilename());
+			try {
+				arquivo.transferTo(new File(this.localTemporario.toAbsolutePath().toString() + getDefault().getSeparator() + novoNome));
+			} catch (IOException e) {
+				throw new RuntimeException("Problemas salvando a foto na pasta temporária", e);
+			}
+		}
+		return novoNome;
+	}
+	
+	@Override
+	public byte[] recuperarFotoTemporaria(String nome) {
+		try {
+			return Files.readAllBytes(this.localTemporario.resolve(nome));
+		} catch (IOException e) {
+			throw new RuntimeException("Problemas lendo a foto da pasta temporária", e);
+		}
+	}
+
 	private void criarPastas() {
 		try {
 			Files.createDirectories(this.local);
@@ -47,21 +72,6 @@ public class FotoStorageLocal implements FotoStorage {
 		
 	}
 
-	@Override
-	public String salvarTemporariamente(MultipartFile[] files) {
-		String novoNome = null;
-		if(files != null && files.length > 0) {
-			MultipartFile arquivo = files[0];
-			novoNome = renomearArquivo(arquivo.getOriginalFilename());
-			try {
-				arquivo.transferTo(new File(this.localTemporario.toAbsolutePath().toString() + getDefault().getSeparator() + novoNome));
-			} catch (IOException e) {
-				throw new RuntimeException("Problemas salvando a foto na pasta temporária", e);
-			}
-		}
-		return novoNome;
-	}
-	
 	private String renomearArquivo(String nomeOriginal) {
 		String novoNome = UUID.randomUUID().toString() + "_" + nomeOriginal;
 		
@@ -71,4 +81,5 @@ public class FotoStorageLocal implements FotoStorage {
 		}	
 		return novoNome;
 	}
+
 }
