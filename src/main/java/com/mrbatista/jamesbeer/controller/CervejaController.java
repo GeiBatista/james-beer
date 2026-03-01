@@ -19,6 +19,7 @@ import com.mrbatista.jamesbeer.model.Origem;
 import com.mrbatista.jamesbeer.model.Sabor;
 import com.mrbatista.jamesbeer.repository.Cervejas;
 import com.mrbatista.jamesbeer.repository.Estilos;
+import com.mrbatista.jamesbeer.repository.filter.CervejaFilter;
 import com.mrbatista.jamesbeer.service.CadastroCervejaService;
 
 @Controller
@@ -56,13 +57,13 @@ public class CervejaController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar() {
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result) {
 		ModelAndView mv = new ModelAndView("cerveja/PesquisaCervejas");
 		mv.addObject("estilos", estilos.findAll());
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
 		
-		mv.addObject("cervejas", cervejas.findAll());
+		mv.addObject("cervejas", cervejas.filtrar(cervejaFilter));
 		return mv;
 	}
 	
