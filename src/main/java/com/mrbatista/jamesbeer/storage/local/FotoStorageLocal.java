@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mrbatista.jamesbeer.storage.FotoStorage;
 
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
+
 public class FotoStorageLocal implements FotoStorage {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FotoStorageLocal.class);
@@ -54,6 +57,30 @@ public class FotoStorageLocal implements FotoStorage {
 			throw new RuntimeException("Problemas lendo a foto da pasta temporária", e);
 		}
 	}
+	
+	@Override
+	public byte[] recuperarFotoDefinitiva(String nome) {
+		try {
+			return Files.readAllBytes(this.local.resolve(nome));
+		} catch (IOException e) {
+			throw new RuntimeException("Problemas lendo a foto da pasta Definitiva", e);
+		}
+	}
+	
+	@Override
+	public void salvar(String foto) {
+		try {
+			Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
+		} catch (IOException e) {
+			throw new RuntimeException("Problemas movendo a foto da pasta temporária para a pasta definitiva", e);
+		}
+		
+		try {
+			Thumbnails.of(this.local.resolve(foto).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+		} catch (IOException e) {
+			throw new RuntimeException("Problemas gerando Thumbnail", e);
+		}
+	}
 
 	private void criarPastas() {
 		try {
@@ -82,4 +109,5 @@ public class FotoStorageLocal implements FotoStorage {
 		return novoNome;
 	}
 
+	
 }

@@ -6,6 +6,9 @@ public interface FotoStorage {
 	
 	public String salvarTemporariamente(MultipartFile[] files);
 
-	public byte[] recuperarFotoTemporaria(String nome); 
+	public byte[] recuperarFotoTemporaria(String nome);
 
+	public void salvar(String foto); 
+
+	public byte[] recuperarFotoDefinitiva(String foto);
 }

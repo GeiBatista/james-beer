@@ -123,3 +123,7 @@
 .btn-excluir:hover {
     color: #c9302c;
 }
+
+.table-cervejas-lista-vazia {
+    color: #d9534f;;
+}
