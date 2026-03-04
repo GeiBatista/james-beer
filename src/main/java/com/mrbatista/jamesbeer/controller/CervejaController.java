@@ -30,6 +30,7 @@ import com.mrbatista.jamesbeer.service.CadastroCervejaService;
 @RequestMapping("/cervejas")
 public class CervejaController {
 	
+	@SuppressWarnings("unused")
 	private static final Logger  logger = LoggerFactory.getLogger(CervejaController.class);
 	
 	@Autowired 
