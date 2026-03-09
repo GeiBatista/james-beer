@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mrbatista.jamesbeer.model.Estilo;
 import com.mrbatista.jamesbeer.repository.Estilos;
+import com.mrbatista.jamesbeer.repository.filter.EstiloFilter;
 import com.mrbatista.jamesbeer.service.CadastroEstiloService;
 import com.mrbatista.jamesbeer.service.exception.NomeEstiloJaCadastradoException;
 
@@ -64,10 +65,10 @@ public class EstilosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar() {
+	public ModelAndView pesquisar(EstiloFilter estiloFilter, BindingResult result) {
 		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
 		
-		mv.addObject("estilos", estilos.findAll());
+		mv.addObject("estilos", estilos.filtrar(estiloFilter));
 		return mv;
 		
 	}

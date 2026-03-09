@@ -30,12 +30,12 @@
 			</div>
 		</div>			
 		
-		<div class="container-fluid">
+		<div class="container-fluid" th:object="${estiloFilter}">
 			<form method="GET" >
 			<div class="row">
 					<div class="form-group  col-sm-12">
 						<label class="control-label" for="nome">Estilo</label> 
-						<input	type="text" class="form-control" id="nome" />
+						<input	type="text" class="form-control" id="nome" th:field="*{nome}"/>
 					</div>
 				</div>
              
