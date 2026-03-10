@@ -3,6 +3,7 @@ package com.mrbatista.jamesbeer.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -70,7 +71,8 @@ public class EstilosController {
 	public ModelAndView pesquisar(EstiloFilter estiloFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
 		
-		mv.addObject("estilos", estilos.filtrar(estiloFilter, pageable));
+		Page<Estilo> pagina = estilos.filtrar(estiloFilter, pageable);
+		mv.addObject("pagina", pagina);
 		return mv;
 		
 	}
