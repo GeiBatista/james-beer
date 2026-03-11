@@ -1,9 +1,9 @@
 package com.mrbatista.jamesbeer.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mrbatista.jamesbeer.controller.page.PageWrapper;
 import com.mrbatista.jamesbeer.model.Estilo;
 import com.mrbatista.jamesbeer.repository.Estilos;
 import com.mrbatista.jamesbeer.repository.filter.EstiloFilter;
@@ -68,11 +69,11 @@ public class EstilosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(EstiloFilter estiloFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable) {
+	public ModelAndView pesquisar(EstiloFilter estiloFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
 		
-		Page<Estilo> pagina = estilos.filtrar(estiloFilter, pageable);
-		mv.addObject("pagina", pagina);
+		PageWrapper<Estilo> paginaWrapper = new PageWrapper<>(estilos.filtrar(estiloFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
 		return mv;
 		
 	}
