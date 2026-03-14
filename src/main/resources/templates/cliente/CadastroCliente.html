@@ -39,17 +39,14 @@
 					<div class="row">
 						<div class="col-lg-4 col-sm-6 form-group">
 							<label for="tipoPessoa">Tipo pessoa</label>
-							<div>
+							<div>							
+								<th:block th:each="tipoPessoa : ${tiposPessoa}">
 								<div class="radio radio-inline">
-									<input id="id_FISICA" type="radio" class="js-radio-tipo-pessoa" 
-									name="tipoPessoa" data-documento="CPF" data-mascara="000.000.000-00">
-									<label class="control-label" for="id_FISICA">Física</label>
-								</div>
-								<div class="radio radio-inline">
-									<input id="id_JURIDICA" type="radio" class="js-radio-tipo-pessoa" 
-									name="tipoPessoa" data-documento="CNPJ" data-mascara="00.000.000/0000-00">
-									<label class="control-label" for="id_JURIDICA">Jurídica</label>
-								</div>
+									<input th:id="|id_${tipoPessoa}|" type="radio" class="js-radio-tipo-pessoa" 
+									name="tipoPessoa" th:attr="data-documento=${tipoPessoa.documento},  data-mascara=${tipoPessoa.mascara}" >
+									<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}">Física</label>
+								</div>								
+								</th:block>
 							</div>					
 						</div>					
 						<div class="col-lg-8 col-sm-6 form-group">
