@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	xmlns:data="http://www.thymeleaf.org/extras/data"
 	layout:decorate="~{layout/LayoutPadrao}">
 
 <head>
@@ -43,7 +44,7 @@
 								<th:block th:each="tipoPessoa : ${tiposPessoa}">
 								<div class="radio radio-inline">
 									<input th:id="|id_${tipoPessoa}|" type="radio" class="js-radio-tipo-pessoa" 
-									name="tipoPessoa" th:attr="data-documento=${tipoPessoa.documento},  data-mascara=${tipoPessoa.mascara}" >
+									name="tipoPessoa" data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}">
 									<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}">Física</label>
 								</div>								
 								</th:block>

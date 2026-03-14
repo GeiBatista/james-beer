@@ -26,6 +26,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.mrbatista.jamesbeer.controller.CervejaController;
 import com.mrbatista.jamesbeer.controller.converter.EstiloConverter;
 import com.mrbatista.jamesbeer.thymeleaf.JamesBeerDialect;
@@ -62,6 +63,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     	
     	engine.addDialect(new LayoutDialect());
     	engine.addDialect(new JamesBeerDialect());
+    	engine.addDialect(new DataAttributeDialect());
     	return engine;
     }
     
