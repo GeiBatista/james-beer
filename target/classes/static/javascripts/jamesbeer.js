@@ -39,10 +39,41 @@ JamesBeer.MaskPhoneNumber = (function () {
 		return MaskPhoneNumber;
 }());
 
+JamesBeer.MaskCep = (function() {
+
+    function MaskCep() {
+		this.inputCep = $('.js-cep');
+    }
+
+    MaskCep.prototype.enable = function() {
+		var options =  {
+		  onKeyPress: function(cep, event, currentField, options){
+		    console.log('Tecla pressionada:', cep, ' evento: ', event,
+		                'campoAtual: ', currentField, ' opções: ', options);
+		  },
+		  onChange: function(cep){
+		    console.log('CEP alterado:', cep);
+		  },
+		  onInvalid: function(val, e, f, invalid, options){
+		    var error = invalid[0];
+		    console.log ("Dígito: ", error.v, " é inválido para a posição: ", error.p, ". Esperávamos algo como: ", error.e);
+		  }
+		};
+		
+		this.inputCep.mask('00000-000', options);
+    }
+
+    return MaskCep;
+
+}());
+
 $(function() {
     var maskMoney = new JamesBeer.MaskMoney();
     maskMoney.enable();
 	
 	var maskPhoneNumber = new JamesBeer.MaskPhoneNumber();
 	maskPhoneNumber.enable();
+	
+	var maskCep = new JamesBeer.MaskCep();
+	maskCep.enable();
 });
