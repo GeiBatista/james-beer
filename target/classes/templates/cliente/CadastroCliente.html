@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
 	xmlns:data="http://www.thymeleaf.org/extras/data"
-	layout:decorate="~{layout/LayoutPadrao}">
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:jamesbeer="http://www.jamesbeer.com.br/thymeleaf">
 
 <head>
 	<title>Cadastro de cliente</title>
@@ -21,76 +22,71 @@
 			</div>
 
 			<div class="container-fluid">
-
-				<!-- 	<div class="alert  alert-danger  alert-dismissible" role="alert"> -->
-				<!-- 		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-				<!-- 		<i class="fa  fa-exclamation-circle"></i> Já existe um produto com o nome informado. -->
-				<!-- 	</div> -->
-
-				<form method="POST" th:object="${cliente}"
-					class="form-vertical  js-form-loading">
-
+				<form method="POST" th:object="${cliente}" th:action="@{/clientes/novo}">
+				<jamesbeer:message/>
+					
 					<div class="row">
-						<div class="col-sm-12  form-group">
-							<label for="nome">Nome</label> 
-							<input id="nome" type="text" class="form-control" />
+						<div class="col-sm-12  form-group jb-required" jamesbeer:classforerror="nome">
+							<label for="nome" class="control-label">Nome</label> 
+							<input id="nome" type="text" class="form-control" autofocus="autofocus" th:field="*{nome}"/>
 						</div>
 					</div>
 					
 					<div class="row">
-						<div class="col-lg-4 col-sm-6 form-group">
-							<label for="tipoPessoa">Tipo pessoa</label>
+						<div class="col-lg-4 col-sm-6 form-group jb-required" jamesbeer:classforerror="tipoPessoa">
+							<label for="tipoPessoa" class="control-label">Tipo pessoa</label>
 							<div>							
 								<th:block th:each="tipoPessoa : ${tiposPessoa}">
 								<div class="radio radio-inline">
 									<input th:id="|id_${tipoPessoa}|" type="radio" class="js-radio-tipo-pessoa" 
-									name="tipoPessoa" data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}">
+									th:field="*{tipoPessoa}" th:value="${tipoPessoa}" 
+									data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}">
 									<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}">Física</label>
 								</div>								
 								</th:block>
 							</div>					
 						</div>					
-						<div class="col-lg-8 col-sm-6 form-group">
-							<label for="cpfOuCnpj">CPF/CNPJ</label>
-							<input id="cpfOuCnpj" type="text" class="form-control" disabled>
+						<div class="col-lg-8 col-sm-6 form-group jb-required" jamesbeer:classforerror="cpfOuCnpj">
+							<label for="cpfOuCnpj" class="control-label">CPF/CNPJ</label>
+							<input id="cpfOuCnpj" type="text" class="form-control" th:field="*{cpfOuCnpj}" disabled>
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-lg-4 form-group" >
 							<label for="telefone">Telefone</label>
-							<input id="telefone" type="text" class="form-control js-phone-number">						
+							<input id="telefone" type="text" class="form-control js-phone-number" th:field="*{telefone}">                        
 						</div>
-						<div class="col-lg-8">
-							<label for="email">E-mail</label>
-							<input id="email" type="text" class="form-control">
+						<div class="col-lg-8"  jamesbeer:classforerror="email">
+							<label for="email" class="control-label">E-mail</label>
+							<input id="email" type="text" class="form-control" th:field="*{email}">
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-lg-4 form-group">
 							<label for="logradouro">Logradouro</label>
-							<input id="logradouro" type="text" class="form-control">
+							<input id="logradouro" type="text" class="form-control" th:field="*{endereco.logradouro}">
 						</div>
 						<div class="col-lg-4 form-group">
 							<label for="numero">Número</label>
-							<input id="numero" type="text" class="form-control">
+							<input id="numero" type="text" class="form-control" th:field="*{endereco.numero}">
 						</div>
 						<div class="col-lg-4 form-group">
 							<label for="complemento">Complemento</label>
-							<input id="complemento" type="text" class="form-control">
+							<input id="complemento" type="text" class="form-control" th:field="*{endereco.complemento}">
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-lg-4 form-group">
 							<label for="cep">CEP</label>
-							<input id="cep" type="text" class="form-control js-cep">
+							<input id="cep" type="text" class="form-control js-cep" th:field="*{endereco.cep}">
 						</div>
 						
 						<div class="col-sm-4  form-group">
 							<label for="estado">Estado</label>
-								<select id="estado" class="form-control" >
+								<select id="estado" class="form-control"  th:field="*{endereco.estado}">
 									<option value="">Selecione o estado</option>
 									<option th:each="estado : ${estados}"  th:value="${estado.codigo}" th:text="${estado.nome}">BA</option>
 								</select>
@@ -99,7 +95,8 @@
 						<div class="col-sm-4  form-group">
 							<label for="cidade">Cidade</label>
 							<div class="jb-field-action">
-								<select id="cidade" class="form-control" data:url=@{/cidades} >
+								<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}"/>
+								<select id="cidade" class="form-control" data:url=@{/cidades} th:field="*{endereco.cidade}" >
 								</select>	
 								
 								<div class="jb-field-action__icon js-img-loading" style="display: none">
