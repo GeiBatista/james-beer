@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -107,6 +109,12 @@ public class Cliente implements Serializable{
 
 	public Endereco getEndereco() {
 		return endereco;
+	}
+	
+	@PrePersist
+	@PreUpdate
+	private void prePersisttPreUpdate() {
+		this.cpfOuCnpj = cpfOuCnpj.replaceAll("\\.|-|/", "");
 	}
 
 	public void setEndereco(Endereco endereco) {

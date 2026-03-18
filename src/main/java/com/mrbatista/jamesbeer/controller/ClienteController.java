@@ -14,13 +14,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.mrbatista.jamesbeer.model.Cliente;
 import com.mrbatista.jamesbeer.model.TipoPessoa;
 import com.mrbatista.jamesbeer.repository.Estados;
+import com.mrbatista.jamesbeer.service.CadastroClienteService;
 
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
 
 	@Autowired
-	Estados estados;
+	private Estados estados;
+	
+	@Autowired
+	private CadastroClienteService cadastroClienteService;
 	
 	@RequestMapping("/novo")
 	private ModelAndView novo(Cliente cliente) {
@@ -36,7 +40,7 @@ public class ClienteController {
 		return novo(cliente);
 		}
 		
-//		cadastroClienteService.salvar(cliente);
+		cadastroClienteService.salvar(cliente);
 		attributes.addFlashAttribute("mensagem", "cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
 	}
