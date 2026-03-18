@@ -58,6 +58,12 @@ public class Cliente implements Serializable{
 	
 	@Embedded
 	private Endereco endereco;
+	
+	@PrePersist
+	@PreUpdate
+	private void prePersisttPreUpdate() {
+		this.cpfOuCnpj = TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -110,21 +116,21 @@ public class Cliente implements Serializable{
 	public Endereco getEndereco() {
 		return endereco;
 	}
-	
-	@PrePersist
-	@PreUpdate
-	private void prePersisttPreUpdate() {
-		this.cpfOuCnpj = cpfOuCnpj.replaceAll("\\.|-|/", "");
-	}
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
+	public String getCpfOuCnpjSemFormatação() {
+		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);
 	}
+	
+	
 
 	@Override
 	public boolean equals(Object obj) {

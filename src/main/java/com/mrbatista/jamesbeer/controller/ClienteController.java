@@ -15,6 +15,7 @@ import com.mrbatista.jamesbeer.model.Cliente;
 import com.mrbatista.jamesbeer.model.TipoPessoa;
 import com.mrbatista.jamesbeer.repository.Estados;
 import com.mrbatista.jamesbeer.service.CadastroClienteService;
+import com.mrbatista.jamesbeer.service.exception.CpfCnpjClienteJaCadastradoException;
 
 @Controller
 @RequestMapping("/clientes")
@@ -40,7 +41,13 @@ public class ClienteController {
 		return novo(cliente);
 		}
 		
-		cadastroClienteService.salvar(cliente);
+		try {
+			cadastroClienteService.salvar(cliente);
+		} catch (CpfCnpjClienteJaCadastradoException e) {
+			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
+			return novo(cliente);
+		}
+		
 		attributes.addFlashAttribute("mensagem", "cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
 	}

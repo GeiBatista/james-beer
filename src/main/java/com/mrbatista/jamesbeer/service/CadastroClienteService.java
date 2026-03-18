@@ -1,11 +1,14 @@
 package com.mrbatista.jamesbeer.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mrbatista.jamesbeer.model.Cliente;
 import com.mrbatista.jamesbeer.repository.Clientes;
+import com.mrbatista.jamesbeer.service.exception.CpfCnpjClienteJaCadastradoException;
 
 @Service
 public class CadastroClienteService {
@@ -15,6 +18,10 @@ public class CadastroClienteService {
 	
 	@Transactional
 	public void salvar(Cliente cliente) {
+		Optional<Cliente> clienteExistente = clientes.findByCpfOuCnpj(cliente.getCpfOuCnpjSemFormatação());
+		if(clienteExistente.isPresent()) {
+			throw new CpfCnpjClienteJaCadastradoException("CPF/CNPJ já cadastrado");
+		}
 		clientes.save(cliente);
 		
 	}
