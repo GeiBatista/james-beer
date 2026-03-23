@@ -65,7 +65,7 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="cliente : ${pagina.content}">
+						<tr th:each="cliente : ${pagina.conteudo}">
 							<td class="text-left" th:text="${cliente.nome}">Gei</td>
 							<td class="text-left" th:text="${cliente.tipoPessoa}">Física</td>
 							<td class="text-left" th:text="${cliente.cpfOuCnpj}">12345678910</td>
@@ -77,33 +77,13 @@
 									<i class="glyphicon glyphicon-remove"></i>
 							</a></td>
 						</tr>
-						<tr th:if="${#lists.isEmpty(pagina.content)}">
+						<tr th:if="${pagina.vazia}">
 							<td colspan="7" class="text-center table-listas-vazias">Nenhum cliente encontrado</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-
-			<div class="col-sm-12 text-center" th:if="${not #lists.isEmpty(pagina.content)}">
-				<nav>
-					<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.number}">
-						<li th:class="${pagina.first} ? disabled">
-							<a th:href="|?page=${paginaAtual - 1}|" th:remove="${pagina.first} ? tag"><span>&laquo;</span></a>
-						</li>
-
-						<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}" th:with="numeroPagina=${p - 1}, paginaAtual=${pagina.number}">
-							<li th:class="${paginaAtual == numeroPagina} ? active">
-								<a	th:href="|?page=${numeroPagina}|">[[${p}]]</a>
-							</li>
-						</th:block>
-
-						<li th:class="${pagina.last} ? disabled">
-							<a th:href="|?page=${paginaAtual + 1}|" th:remove="${pagina.last} ? tag"><span>&raquo;</span></a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-			<!-- <div class="col-sm-12 text-center" th:if="${not pagina.vazia}">
+			<div class="col-sm-12 text-center" th:if="${not pagina.vazia}">
 				<nav>
 					<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
 						<li th:class="${pagina.primeira} ? disabled">
@@ -121,7 +101,7 @@
 						</li>
 					</ul>
 				</nav>
-			</div> -->
+			</div>
 		</div>
 	</section>
 </body>
