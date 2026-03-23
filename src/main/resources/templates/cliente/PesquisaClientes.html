@@ -30,81 +30,71 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="container-fluid">
-			<form method="GET" th:object="${clienteFilter}" class="aw-form-pesquisa">
-				
+			<form method="GET" th:object="${clienteFilter}"
+				class="aw-form-pesquisa">
+
 				<div class="row">
 					<div class="form-group  col-sm-8">
-						<label class="control-label" for="nome">Nome</label> 
-						<input	type="text" class="form-control" id="nome" th:field="*{nome}"/>
+						<label class="control-label" for="nome">Nome</label> <input
+							type="text" class="form-control" id="nome" th:field="*{nome}" />
 					</div>
-					
+
 					<div class="form-group  col-sm-4">
-						<label class="control-label" for="cpfOuCnpj">CPF/CNPJ</label> 
-						<input	type="text" class="form-control" id="cpfOuCnpj" th:field="*{cpfOuCnpj}"/>
+						<label class="control-label" for="cpfOuCnpj">CPF/CNPJ</label> <input
+							type="text" class="form-control" id="cpfOuCnpj"
+							th:field="*{cpfOuCnpj}" />
 					</div>
 				</div>
 
-              <button type="submit" class="btn btn-primary">Pesquisar</button>
+				<button type="submit" class="btn btn-primary">Pesquisar</button>
 			</form>
-			
+
 			<div class="aw-table-responsive jb-tabela-simples">
 				<table class="table table-hover">
-	                <thead>
-	                    <tr>
-	                        <th class="table-clientes-col-nome">Nome
-		                        <!-- <jamesbeer:order pagina="${pagina}" propriedade="nome" rotulo="Nome"/> -->
-	                        </th>
-	                        <th class="table-clientes-col-tipo-pessoa">Tipo Pessoa</th>
-	                        <th class="table-clientes-col-cpfcnpj">CPF/CNPJ</th>
-	                        <th class="table-clientes-col-telefone">Telefone</th>
-	                        <th class="table-clientes-col-acoes"></th>
-	                    </tr>
-	                </thead>
-	
-	                <tbody>
-	                    <tr th:each="cliente : ${clientes}">
-	                        <td class="text-left" th:text="${cliente.nome}">Gei</td>
-	                        <td class="text-left" th:text="${cliente.tipoPessoa}">Física</td>
-	                        <td class="text-left" th:text="${cliente.cpfOuCnpj}">12345678910</td>
-	                        <td class="text-left" th:text="${cliente.telefone}">(71)9888-8888</td>
-	                        <td class="text-center">
-                            	<a class="btn btn-link btn-xs js-tooltip" title="Editar">
-                            		<i class="glyphicon glyphicon-pencil"></i>
-                            	</a>
-                            	<a class="btn btn-link btn-xs btn-excluir" title="Excluir">
-                            		<i class="glyphicon glyphicon-remove"></i>
-                            	</a>
-                            </td>	
-	                    </tr>
-	                    <tr th:if="${#lists.isEmpty(clientes)}">
-                        	<td colspan="7" class="text-center table-listas-vazias">Nenhum cliente encontrado</td>
-                       	</tr>
-	                </tbody>
+					<thead>
+						<tr>
+							<th class="table-clientes-col-nome">Nome <!-- <jamesbeer:order pagina="${pagina}" propriedade="nome" rotulo="Nome"/> -->
+							</th>
+							<th class="table-clientes-col-tipo-pessoa">Tipo Pessoa</th>
+							<th class="table-clientes-col-cpfcnpj">CPF/CNPJ</th>
+							<th class="table-clientes-col-telefone">Telefone</th>
+							<th class="table-clientes-col-acoes"></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="cliente : ${pagina.content}">
+							<td class="text-left" th:text="${cliente.nome}">Gei</td>
+							<td class="text-left" th:text="${cliente.tipoPessoa}">Física</td>
+							<td class="text-left" th:text="${cliente.cpfOuCnpj}">12345678910</td>
+							<td class="text-left" th:text="${cliente.telefone}">(71)9888-8888</td>
+							<td class="text-center"><a
+								class="btn btn-link btn-xs js-tooltip" title="Editar"> <i
+									class="glyphicon glyphicon-pencil"></i>
+							</a> <a class="btn btn-link btn-xs btn-excluir" title="Excluir">
+									<i class="glyphicon glyphicon-remove"></i>
+							</a></td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(pagina.content)}">
+							<td colspan="7" class="text-center table-listas-vazias">Nenhum cliente encontrado</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
-			
-			<div class="col-sm-12 text-center" >
+
+			<div class="col-sm-12 text-center" th:if="${not #lists.isEmpty(pagina.content)}">
 				<nav>
 					<ul class="pagination pagination-sm">
-						<li class="disabled">
-							<a href="#"><span>&laquo;</span></a>
-						</li>
-						
-							<li>
-								<a href="?page=0">1</a>
-							</li>
-							<li>
-								<a href="?page=1">2</a>
-							</li>
-							<li>
-								<a href="?page=2">3</a>
-							</li>
-							
-						<li  class="disabled">
-							<a href="#"><span>&raquo;</span></a>
-						</li>
+						<li class="disabled"><a href="#"><span>&laquo;</span></a></li>
+
+						<th:block th:each="p : ${#numbers.sequence(1, pagina.totalPages)}">
+							<li ><a
+								th:href="|?page=${p - 1}|">[[${p}]]</a></li>
+						</th:block>
+
+						<li class="disabled"><a href="#"><span>&raquo;</span></a></li>
 					</ul>
 				</nav>
 			</div>
