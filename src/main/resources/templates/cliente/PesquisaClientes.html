@@ -32,17 +32,17 @@
 		</div>
 		
 		<div class="container-fluid">
-			<form method="GET"  class="aw-form-pesquisa">
+			<form method="GET" th:object="${clienteFilter}" class="aw-form-pesquisa">
 				
 				<div class="row">
 					<div class="form-group  col-sm-8">
 						<label class="control-label" for="nome">Nome</label> 
-						<input	type="text" class="form-control" id="nome" />
+						<input	type="text" class="form-control" id="nome" th:field="*{nome}"/>
 					</div>
 					
 					<div class="form-group  col-sm-4">
 						<label class="control-label" for="cpfOuCnpj">CPF/CNPJ</label> 
-						<input	type="text" class="form-control" id="cpfOuCnpj"/>
+						<input	type="text" class="form-control" id="cpfOuCnpj" th:field="*{cpfOuCnpj}"/>
 					</div>
 				</div>
 
