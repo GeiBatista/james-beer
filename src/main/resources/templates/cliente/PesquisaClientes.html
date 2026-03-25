@@ -63,18 +63,20 @@
 							</th>
 							<th class="table-clientes-col-cpfcnpj">CPF/CNPJ</th>
 							<th class="table-clientes-col-telefone">Telefone</th>
+							<th class="table-clientes-col-cidade-estado">Cidade/Estado</th>
 							<th class="table-clientes-col-acoes"></th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<tr th:each="cliente : ${pagina.conteudo}">
-							<td class="text-left" th:text="${cliente.nome}">Gei</td>
-							<td class="text-left" th:text="${cliente.tipoPessoa}">Física</td>
-							<td class="text-left" th:text="${cliente.cpfOuCnpj}">12345678910</td>
-							<td class="text-left" th:text="${cliente.telefone}">(71)9888-8888</td>
-							<td class="text-center"><a
-								class="btn btn-link btn-xs js-tooltip" title="Editar"> <i
+							<td th:text="${cliente.nome}">Gei</td>
+							<td class="text-center" th:text="${cliente.tipoPessoa}">Física</td>
+							<td class="text-right" th:text="${cliente.cpfOuCnpj}">12345678910</td>
+							<td class="text-right" th:text="${cliente.telefone}">(71)9888-8888</td>
+							<td class="text-right" th:text="${cliente.endereco.nomeCidadeSiglaEstado}">Salvador</td>
+							<td class="text-center">
+							<a class="btn btn-link btn-xs js-tooltip" title="Editar"> <i
 									class="glyphicon glyphicon-pencil"></i>
 							</a> <a class="btn btn-link btn-xs btn-excluir" title="Excluir">
 									<i class="glyphicon glyphicon-remove"></i>
