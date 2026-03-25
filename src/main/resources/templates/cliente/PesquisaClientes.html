@@ -55,10 +55,12 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class="table-clientes-col-nome">Nome <!-- <jamesbeer:order pagina="${pagina}" propriedade="nome" rotulo="Nome"/> -->
-								<span class="dropup"><span class="caret"></span></span>
+							<th class="table-clientes-col-nome">
+								<jamesbeer:order pagina="${pagina}" propriedade="nome" rotulo="Nome"/>
 							</th>
-							<th class="table-clientes-col-tipo-pessoa">Tipo Pessoa</th>
+							<th class="table-clientes-col-tipo-pessoa">
+								<jamesbeer:order pagina="${pagina}" propriedade="tipoPessoa" rotulo="Tipo Pessoa"/>
+							</th>
 							<th class="table-clientes-col-cpfcnpj">CPF/CNPJ</th>
 							<th class="table-clientes-col-telefone">Telefone</th>
 							<th class="table-clientes-col-acoes"></th>
