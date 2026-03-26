@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mrbatista.jamesbeer.model.Estilo;
 import com.mrbatista.jamesbeer.repository.Estilos;
-import com.mrbatista.jamesbeer.service.exception.NomeEstiloJaCadastradoException;
+import com.mrbatista.jamesbeer.service.exception.estilo.NomeEstiloJaCadastradoException;
 
 @Service
 public class CadastroEstiloService {

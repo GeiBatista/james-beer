@@ -25,7 +25,7 @@ import com.mrbatista.jamesbeer.model.Estilo;
 import com.mrbatista.jamesbeer.repository.Estilos;
 import com.mrbatista.jamesbeer.repository.filter.EstiloFilter;
 import com.mrbatista.jamesbeer.service.CadastroEstiloService;
-import com.mrbatista.jamesbeer.service.exception.NomeEstiloJaCadastradoException;
+import com.mrbatista.jamesbeer.service.exception.estilo.NomeEstiloJaCadastradoException;
 
 @Controller
 @RequestMapping("/estilos")

@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.mrbatista.jamesbeer.model.Cliente;
+import com.mrbatista.jamesbeer.repository.helper.cliente.ClientesQueries;
 
 @Repository
-public interface Clientes extends JpaRepository<Cliente, Long>{
+public interface Clientes extends JpaRepository<Cliente, Long>, ClientesQueries{
 
 	public Optional<Cliente> findByCpfOuCnpj(String cpfOuCnpj);
 

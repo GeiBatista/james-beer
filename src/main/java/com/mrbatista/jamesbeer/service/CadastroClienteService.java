@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mrbatista.jamesbeer.model.Cliente;
 import com.mrbatista.jamesbeer.repository.Clientes;
-import com.mrbatista.jamesbeer.service.exception.CpfCnpjClienteJaCadastradoException;
+import com.mrbatista.jamesbeer.service.exception.cliente.CpfCnpjClienteJaCadastradoException;
 
 @Service
 public class CadastroClienteService {

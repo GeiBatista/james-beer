@@ -1,21 +1,29 @@
 package com.mrbatista.jamesbeer.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mrbatista.jamesbeer.controller.page.PageWrapper;
+import com.mrbatista.jamesbeer.model.Cerveja;
 import com.mrbatista.jamesbeer.model.Cliente;
 import com.mrbatista.jamesbeer.model.TipoPessoa;
+import com.mrbatista.jamesbeer.repository.Clientes;
 import com.mrbatista.jamesbeer.repository.Estados;
+import com.mrbatista.jamesbeer.repository.filter.ClienteFilter;
 import com.mrbatista.jamesbeer.service.CadastroClienteService;
-import com.mrbatista.jamesbeer.service.exception.CpfCnpjClienteJaCadastradoException;
+import com.mrbatista.jamesbeer.service.exception.cliente.CpfCnpjClienteJaCadastradoException;
 
 @Controller
 @RequestMapping("/clientes")
@@ -26,6 +34,9 @@ public class ClienteController {
 	
 	@Autowired
 	private CadastroClienteService cadastroClienteService;
+	
+	@Autowired
+	private Clientes clientes;
 	
 	@RequestMapping("/novo")
 	private ModelAndView novo(Cliente cliente) {
@@ -50,5 +61,14 @@ public class ClienteController {
 		
 		attributes.addFlashAttribute("mensagem", "cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo");
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("cliente/PesquisaClientes");
+		
+		PageWrapper<Cliente> paginaWrapper = new PageWrapper<>(clientes.filtrar(clienteFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		return mv;
 	}
 }

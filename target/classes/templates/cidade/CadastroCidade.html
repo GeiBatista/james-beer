@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/LayoutPadrao}">
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:jamesbeer="http://www.jamesbeer.com.br/thymeleaf">
 
 <head>
 	<title>Cadastro de cidade</title>
@@ -28,20 +29,21 @@
 
 				<form method="POST" th:object="${cidade}"
 					class="form-vertical  js-form-loading">
+					<jamesbeer:message />
 
 					<div class="row">
-						<div class="col-sm-4  form-group">
-							<label for="estado">Estado</label>
+						<div class="col-sm-4  form-group jb-required" jamesbeer:classforerror="estado">
+							<label for="estado" class="control-label">Estado</label>
 							<div class="jb-field-action">
-								<select id="estado" class="form-control">
+								<select id="estado" class="form-control" th:field="*{estado}">
 									<option value="">Selecione o estado</option>
-									<option value="1">BA</option>
+									<option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">BA</option>
 								</select>
 							</div>
 						</div>
-						<div class="col-sm-8  form-group">
-							<label for="nome">Nome</label> 
-							<input id="nome" type="text" class="form-control" />
+						<div class="col-sm-8  form-group jb-required" jamesbeer:classforerror="nome">
+							<label for="nome" class="control-label">Nome</label> 
+							<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
 						</div>
 					</div>
 
@@ -54,6 +56,9 @@
 			<div th:replace="/estilo/CadastroRapidoEstilo :: modal"></div>
 			
 		</section>
+		
+		<th:block layout:fragment="javascript-extra">
+		</th:block>
 
 </body>
 </html>
