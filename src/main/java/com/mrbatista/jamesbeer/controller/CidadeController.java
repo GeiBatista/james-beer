@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -42,23 +43,33 @@ public class CidadeController {
 	private CadastroCidadeService cadastroCidadeService;
 	
 	@RequestMapping("/nova")
-	private ModelAndView novo(Cidade cidade) {
+	private ModelAndView nova(Cidade cidade) {
 		ModelAndView mv = new ModelAndView("cidade/CadastroCidade");
 		mv.addObject("estados", estados.findAll());
 		return mv;
 	}
 	
+	@Cacheable("cidades")
+	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(
+			@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado){		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {}
+		return cidades.findByEstadoCodigo(codigoEstado);
+	}
+	
 	@PostMapping("/nova")
 	private ModelAndView cadastrar(@Valid Cidade cidade, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-		return novo(cidade);
+		return nova(cidade);
 		}
 		
 		try {
 			cadastroCidadeService.salvar(cidade);
 		} catch (NomeCidadeJaCadastradaException e) {
 			result.rejectValue("nome", e.getMessage(), e.getMessage());
-			return novo(cidade);
+			return nova(cidade);
 		}
 		
 		attributes.addFlashAttribute("mensagem", "cidade salva com sucesso!");
@@ -75,11 +86,6 @@ public class CidadeController {
 		return mv;
 	}
 	
-	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(
-			@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado){		
-		return cidades.findByEstadoCodigo(codigoEstado);
-	}
 
 }
 
