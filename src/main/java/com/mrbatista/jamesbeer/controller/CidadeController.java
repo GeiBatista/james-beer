@@ -2,13 +2,17 @@ package com.mrbatista.jamesbeer.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,12 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mrbatista.jamesbeer.controller.page.PageWrapper;
 import com.mrbatista.jamesbeer.model.Cidade;
 import com.mrbatista.jamesbeer.repository.Cidades;
 import com.mrbatista.jamesbeer.repository.Estados;
+import com.mrbatista.jamesbeer.repository.filter.CidadeFilter;
 import com.mrbatista.jamesbeer.service.CadastroCidadeService;
 import com.mrbatista.jamesbeer.service.exception.cidade.NomeCidadeJaCadastradaException;
-import com.mrbatista.jamesbeer.service.exception.estilo.NomeEstiloJaCadastradoException;
 
 @Controller
 @RequestMapping("/cidades")
@@ -56,10 +61,18 @@ public class CidadeController {
 			return novo(cidade);
 		}
 		
-//		cadastroCidadeService.salvar(cidade);
-		
 		attributes.addFlashAttribute("mensagem", "cidade salva com sucesso!");
 		return new ModelAndView("redirect:/cidades/nova");
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(CidadeFilter cidadeFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("cidade/PesquisaCidades");
+		mv.addObject("estados", estados.findAll());
+		
+		PageWrapper<Cidade> paginaWrapper = new PageWrapper<>(cidades.filtrar(cidadeFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		return mv;
 	}
 	
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
