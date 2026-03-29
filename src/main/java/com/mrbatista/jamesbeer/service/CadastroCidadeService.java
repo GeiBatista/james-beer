@@ -17,12 +17,12 @@ public class CadastroCidadeService {
 	private Cidades cidades;
 	
 	@Transactional
-	public Cidade salvar(Cidade cidade) {
-		Optional<Cidade> cidadeExistente = cidades.findByNomeIgnoreCase(cidade.getNome());
+	public void salvar(Cidade cidade) {
+		Optional<Cidade> cidadeExistente = cidades.findByNomeAndEstado(cidade.getNome(), cidade.getEstado());
 		if(cidadeExistente.isPresent()) {
 			throw new NomeCidadeJaCadastradaException("Já existe uma cidade cadastrada com o nome " + cidade.getNome());
 		}
-		return cidades.saveAndFlush(cidade);
+		cidades.save(cidade);
 		
 	}
 

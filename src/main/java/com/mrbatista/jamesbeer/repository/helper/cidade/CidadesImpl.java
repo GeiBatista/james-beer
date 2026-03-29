@@ -10,7 +10,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,31 +36,23 @@ public class CidadesImpl implements CidadesQueries {
 	public Page<Cidade> filtrar(CidadeFilter filtro, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
 		
-		int paginaAtual = pageable.getPageNumber();
-		int totalRegistrosPorPagina = pageable.getPageSize();
-		int primeiroRegistroDaPagina = paginaAtual * totalRegistrosPorPagina;
-		
-		criteria.setFirstResult(primeiroRegistroDaPagina);
-		criteria.setMaxResults(totalRegistrosPorPagina);
-		
-		Sort sort = pageable.getSort();
-		if(sort != null) {
-			Sort.Order order = sort.iterator().next();
-			String property = order.getProperty();
-			criteria.addOrder(order.isAscending() ? Order.asc(property) : Order.desc(property));
-		}
-		
 		paginacaoUtil.preparar(criteria, pageable);		
 		adicionarFiltro(filtro, criteria);
-		criteria.createAlias("estado", "e", JoinType.LEFT_OUTER_JOIN);
-		criteria.setFetchMode("estado", FetchMode.JOIN);
+		criteria.createAlias("estado", "e");
 		
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
 
+	private Long total(CidadeFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
+		adicionarFiltro(filtro, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
+
 	private void adicionarFiltro(CidadeFilter filtro, Criteria criteria) {
 		if(filtro != null) {
-			if(!StringUtils.isEmpty(filtro.getEstado())) {
+			if (filtro.getEstado() != null) {
 				criteria.add(Restrictions.eq("estado", filtro.getEstado()));
 			}
 			
@@ -70,16 +61,4 @@ public class CidadesImpl implements CidadesQueries {
 			}
 		}
 	}
-	
-	private Long total(CidadeFilter filtro) {
-		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cidade.class);
-		adicionarFiltro(filtro, criteria);
-		criteria.setProjection(Projections.rowCount());
-		return (Long) criteria.uniqueResult();
-	}
-
-//	private boolean isEstadoPresente(CidadeFilter filtro) {
-//		return filtro.getEstado() != null && filtro.getEstado().getCodigo() != null;
-//	}
-
 }

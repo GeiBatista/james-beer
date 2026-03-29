@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/LayoutPadrao}"
-	xmlns:jamesbeer="http://www.jamesbeer.com.br/thymeleaf">
+	xmlns:jamesbeer="http://www.jamesbeer.com.br/thymeleaf"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
 
 <head>
 	<title>Pesquisa de Cidades</title>
@@ -20,9 +21,8 @@
 					
 					<div class="col-sm-2">
 						<div class="aw-page-header-controls">
-							<a class="btn  btn-default" th:href="@{/cidades/nova}"> <i
-								class="glyphicon glyphicon-plus-sign"></i> <span
-								class="hidden-xs hidden-sm">Nova cidade</span>
+							<a class="btn  btn-default" th:href="@{/cidades/nova}"> 
+								<i class="glyphicon glyphicon-plus-sign"></i> <span	class="hidden-xs hidden-sm">Nova cidade</span>
 							</a>
 						</div>
 					</div>
@@ -31,46 +31,50 @@
 		</div>			
 		
 		<div class="container-fluid" >
-			<form method="GET" th:object="${cidadeFilter}" class="aw-form-pesquisa">
-		
-			<div class="row">
-					<div class="form-group col-sm-4">
-						<label class="control-label" for="estado">Estado</label> 
+			<form method="GET" th:object="${cidadeFilter}">
+				<div class="row">
+					<div class="col-sm-4  form-group">
+						<label for="estado">Estado</label> 
 						<select id="estado" class="form-control" th:field="*{estado}">
 							<option value="">Todos</option>
-							<option th:each="estado : ${estados}" th:text="${estado.nome}" th:value="${estado.codigo}"></option>
+							<option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">Bahia</option>
 						</select>
 					</div>
-					<div class="form-group  col-sm-8">
-						<label class="control-label" for="nome">Nome</label> 
-						<input	type="text" class="form-control" id="nome" th:field="*{nome}"/>
+					
+					<div class="col-sm-8  form-group">
+						<label for="nome">Nome</label>
+						<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
 					</div>
 				</div>
-             
-             <button type="submit" class="btn btn-primary">Pesquisar</button>
-		</form>
+
+				<button type="submit" class="btn  btn-primary" >Pesquisar</button>
+			</form>
 		
 		<div class="aw-table-responsive jb-tabela-simples">
 			<table class="table table-hover">
-				 <thead>
-					 <tr>
-                        <th class="table-estilos-col-nome"><jamesbeer:order pagina="${pagina}" propriedade="nome" rotulo="Nome"/></th>
-                        <th class="table-estilos-col-codigo"><jamesbeer:order pagina="${pagina}" propriedade="estado" rotulo="Estado"/></th>
-                        <th class="table-estilos-col-acoes"></th>
-                    </tr>
-	             </thead>
+				<thead>
+					<tr>
+						<th class="table-cidades-col-nome">
+							<jamesbeer:order pagina="${pagina}" propriedade="nome" rotulo="Nome"/>
+						</th>
+						<th class="table-cidades-col-estado">
+							<jamesbeer:order pagina="${pagina}" propriedade="estado" rotulo="Estado"/>
+						</th>
+						<th class="table-col-acoes"></th>
+					</tr>
+				</thead>
 	             
 	             <tbody>
              		<tr th:each="cidade : ${pagina.conteudo}">
-             			<td class="text-center" th:text="${cidade.nome}"></td>
-             			<td th:text="${cidade.estado.nome}"></td>
+             			<td th:text="${cidade.nome}"></td>
+             			<td class="text-right" th:text="${cidade.estado.nome}">Bahia</td>
              			 <td class="text-center">
-                            	<a class="btn btn-link btn-xs js-tooltip" title="Editar">
-                            		<i class="glyphicon glyphicon-pencil"></i>
-                            	</a>
-                            	<a class="btn btn-link btn-xs btn-excluir" title="Excluir">
-                            		<i class="glyphicon glyphicon-remove"></i>
-                            	</a>
+                           	<a class="btn btn-link btn-xs js-tooltip" title="Editar">
+                           		<i class="glyphicon glyphicon-pencil"></i>
+                           	</a>
+                           	<a class="btn btn-link btn-xs btn-excluir" title="Excluir">
+                           		<i class="glyphicon glyphicon-remove"></i>
+                           	</a>
                         </td>	
 	             	</tr>
 	             	<tr th:if="${pagina.vazia}">
@@ -81,22 +85,24 @@
 		</div>
 		
 		<div class="col-sm-12 text-center" th:if="${not pagina.vazia}">
-				<nav>
-					<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
-						<li th:class="${pagina.primeira} ? disabled">
-							<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
+			<nav>
+				<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
+					<li th:class="${pagina.primeira} ? disabled">
+						<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
+					</li>
+					<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
+						<li th:class="${paginaAtual == numeroPagina} ? active">
+							<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
 						</li>
-						<th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
-							<li th:class="${paginaAtual == numeroPagina} ? active">
-								<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
-							</li>
-						</th:block>
-						<li th:class="${pagina.ultima} ? disabled">
-							<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
-						</li>
-					</ul>
-				</nav>
-			</div>
+					</th:block>
+					<li th:class="${pagina.ultima} ? disabled">
+						<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		
+		<!-- <jamesbeer:pagination pagina="${pagina}"/> -->
 	</div>	
 	</section>
 </body>

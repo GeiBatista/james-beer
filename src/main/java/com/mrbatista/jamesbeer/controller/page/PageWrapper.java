@@ -17,7 +17,6 @@ public class PageWrapper<T> {
 	
 	public PageWrapper(Page<T> page, HttpServletRequest httpServletRequest) {
 		this.page = page;
-//		this.uriBuilder = ServletUriComponentsBuilder.fromRequest(httpServletRequest);
 		String httpUrl = httpServletRequest.getRequestURL().append(
 				httpServletRequest.getQueryString() != null ? "?" + httpServletRequest.getQueryString() : "")
 				.toString().replaceAll("\\+", "%20");
@@ -74,13 +73,7 @@ public class PageWrapper<T> {
 	}
 	
 	public boolean descendente(String propriedade) {
-		return inverterDirecao(propriedade).equals("desc");
-//		Order order = page.getSort() != null ? page.getSort().getOrderFor(propriedade) : null;
-//		if(order != null) {
-//			return Sort.Direction.DESC.equals(order.getDirection());
-//		}
-//		
-//		return false;
+		return inverterDirecao(propriedade).equals("asc");
 	}
 	
 	public boolean ordenada(String propriedade) {

@@ -6,20 +6,16 @@
 	xmlns:jamesbeer="http://www.jamesbeer.com.br/thymeleaf">
 
 <head>
-<title>Cadastro de cerveja</title>
+	<title>Cadastro de cerveja</title>
 
-<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
-
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
 </head>
 
 <body>
 
-	<progress id="js-progressbar" class="uk-progress" value="0" max="100"
-		hidden=""></progress>
+	<progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden=""></progress>
 
 	<section layout:fragment="conteudo">
-
-
 		<div class="page-header">
 			<div class="container-fluid">
 				<div class="row">
@@ -29,9 +25,9 @@
 
 					<div class="col-sm-2">
 						<div class="aw-page-header-controls">
-							<a class="btn  btn-default" th:href="@{/cervejas}"> <i
-								class="glyphicon glyphicon-plus-sign"></i> <span
-								class="hidden-xs hidden-sm">Pesquisa</span>
+							<a class="btn  btn-default" th:href="@{/cervejas}"> 
+								<i class="glyphicon glyphicon-plus-sign"></i> 
+								<span class="hidden-xs hidden-sm">Pesquisa</span>
 							</a>
 						</div>
 					</div>

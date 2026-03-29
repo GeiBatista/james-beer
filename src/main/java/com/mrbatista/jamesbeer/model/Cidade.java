@@ -54,6 +54,7 @@ public class Cidade implements Serializable{
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);

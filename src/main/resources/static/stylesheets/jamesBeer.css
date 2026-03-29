@@ -84,6 +84,12 @@
 ##################
 */
 
+/* Colunas comuns */
+.table-col-acoes {
+	width: 80px;
+}
+
+
 /* Colunas - Pesquisa de Cervejas */
 .table-cervejas-col-foto {
     min-width: 50px;
@@ -143,6 +149,16 @@
 
 .table-clientes-col-acoes {
     width: 80px;
+}
+
+/* Colunas - Pesquisa de cidades */
+.table-cidades-col-nome {
+	
+}
+
+.table-cidades-col-estado {
+	width: 140px;
+	text-align: right;
 }
 
 .btn-excluir {

@@ -37,6 +37,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 		return new Filter[] {characterEncodingFilter};
 	}
 
+	@Override
 	protected void customizeRegistration(Dynamic registration) {
 		registration.setMultipartConfig(new MultipartConfigElement(""));
 	}

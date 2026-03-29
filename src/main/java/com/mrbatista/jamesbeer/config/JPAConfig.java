@@ -17,12 +17,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mrbatista.jamesbeer.model.Cerveja;
+import com.mrbatista.jamesbeer.model.Cidade;
+import com.mrbatista.jamesbeer.model.Estado;
 import com.mrbatista.jamesbeer.repository.Cervejas;
 import com.mrbatista.jamesbeer.repository.Estilos;
 
 @Configuration
-@ComponentScan(basePackageClasses = {Cervejas.class, Estilos.class})
-@EnableJpaRepositories(basePackageClasses = {Cervejas.class, Estilos.class}, enableDefaultTransactions = true)
+@ComponentScan(basePackageClasses = {Cervejas.class, Estilos.class, Estado.class, Cidade.class})
+@EnableJpaRepositories(basePackageClasses = {Cervejas.class}, enableDefaultTransactions = false)
 @EnableTransactionManagement
 public class JPAConfig {
 	
