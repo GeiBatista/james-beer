@@ -46,7 +46,7 @@
 					</div>
 					
 					<div class="row">
-						<div class="col-lg-4 form-group" jamesbeer:classforerror="senha">
+						<div class="col-lg-4 form-group" jamesbeer:classforerror="senha" th:classappend="${usuario.novo} ? 'jb-required'">
 							<label for="senha" class="control-label">Senha</label>
 							<input id="senha" type="password" class="form-control" th:field="*{senha}">
 						</div>

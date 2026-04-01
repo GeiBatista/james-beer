@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.mrbatista.jamesbeer.model.Usuario;
 import com.mrbatista.jamesbeer.repository.Grupos;
 import com.mrbatista.jamesbeer.service.CadastroUsuarioService;
+import com.mrbatista.jamesbeer.service.exception.SenhaObrigatoriaUsuarioException;
 import com.mrbatista.jamesbeer.service.exception.usuario.EmailUsuarioJaCadastradoException;
 
 @Controller
@@ -43,8 +44,10 @@ public class UsuarioController {
 		} catch (EmailUsuarioJaCadastradoException e) {
 			result.rejectValue("email", e.getMessage(), e.getMessage());
 			return novo(usuario);
-		}
-		
+		}catch (SenhaObrigatoriaUsuarioException e) {
+			result.rejectValue("senha", e.getMessage(), e.getMessage());
+			return novo(usuario);
+		} 
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso!");
 		return new ModelAndView("redirect:/usuarios/novo");
 	}
