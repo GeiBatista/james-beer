@@ -9,6 +9,7 @@
 	<title>Cadastro de usuário</title>
 	
 	<link rel="stylesheet" type="text/css"	th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
+	
 </head>
 
 <body>
@@ -40,8 +41,7 @@
 						</div>
 						<div class="col-lg-2 form-group" >
 							<label for="dataNascimento">Data de nascimento</label>
-							<input id="dataNascimento" type="text" class="form-control" th:field="*{dataNascimento}"
-							>						
+							<input id="dataNascimento" type="text" class="form-control js-date" th:field="*{dataNascimento}" autoComplete="off">						
 						</div>
 					</div>
 					
