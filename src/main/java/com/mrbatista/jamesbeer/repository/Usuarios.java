@@ -10,6 +10,6 @@ import com.mrbatista.jamesbeer.model.Usuario;
 @Repository
 public interface Usuarios extends JpaRepository<Usuario, Long>{
 	
-	public Optional<Usuario> findByNomeIgnoreCase(String nome);
+	public Optional<Usuario> findByEmail(String email);
 
 }

@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mrbatista.jamesbeer.model.Estilo;
 import com.mrbatista.jamesbeer.model.Usuario;
 import com.mrbatista.jamesbeer.repository.Usuarios;
-import com.mrbatista.jamesbeer.service.exception.estilo.NomeEstiloJaCadastradoException;
+import com.mrbatista.jamesbeer.service.exception.usuario.EmailUsuarioJaCadastradoException;
 
 @Service
 public class CadastroUsuarioService {
@@ -19,9 +18,9 @@ public class CadastroUsuarioService {
 	
 	@Transactional
 	public Usuario salvar(Usuario usuario) {
-		Optional<Usuario> usuarioExistente = usuarios.findByNomeIgnoreCase(usuario.getNome());
-		if(usuarioExistente.isPresent()) {
-			throw new NomeEstiloJaCadastradoException("Já existe um estilo com o nome " + usuario.getNome());
+		Optional<Usuario> emailExistente = usuarios.findByEmail(usuario.getEmail());
+		if(emailExistente.isPresent()) {
+			throw new EmailUsuarioJaCadastradoException("E-mail já cadastrado");
 		}
 		return usuarios.saveAndFlush(usuario);
 	}
