@@ -40,6 +40,7 @@ import com.mrbatista.jamesbeer.controller.CervejaController;
 import com.mrbatista.jamesbeer.controller.converter.CidadeConverter;
 import com.mrbatista.jamesbeer.controller.converter.EstadoConverter;
 import com.mrbatista.jamesbeer.controller.converter.EstiloConverter;
+import com.mrbatista.jamesbeer.controller.converter.GrupoConverter;
 import com.mrbatista.jamesbeer.thymeleaf.JamesBeerDialect;
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
@@ -99,6 +100,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     	conversionService.addConverter(new EstiloConverter());
     	conversionService.addConverter(new CidadeConverter());
     	conversionService.addConverter(new EstadoConverter());
+    	conversionService.addConverter(new GrupoConverter());
     	
     	NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
     	conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);

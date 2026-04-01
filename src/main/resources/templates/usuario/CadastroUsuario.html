@@ -67,14 +67,12 @@
 						<div class="col-lg-4 form-group jb-required" jamesbeer:classforerror="grupos">
 							<label for="grupos" class="control-label">Grupos</label>
 							<div>
-								<div class="checkbox checkbox-inline">
-									<input type="checkbox" name="grupos">
-									<label>Administrador</label>
-								</div>
-								<div class="checkbox checkbox-inline">
-									<input type="checkbox" name="grupos">
-									<label>Vendedor</label>
-								</div>
+								<th:block th:each="grupo : ${grupos}">
+			  						<div class="checkbox  checkbox-inline"> 
+				    					<input type="checkbox" th:value="${grupo.codigo}" th:field="*{grupos}"/>
+				    					<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}">Administrador</label>
+			    					</div>
+			    				</th:block>
 							</div>
 						</div>
 					</div>
