@@ -46,3 +46,12 @@
   min-width: 105px;
   text-align: center;
 }
+
+.aw-simple-panel img {
+	margin-bottom: -40px;
+	margin-right: 18px;
+}
+
+.aw-simple-panel__message {
+	margin-top: 0 !important;
+}

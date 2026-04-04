@@ -183,3 +183,33 @@
     font-family: 'FontAwesome';
     content: "\f00c"; 
 }
+
+/* .navbar-header {
+    display: flex;
+    align-items: center;
+}
+ */
+.navbar {
+    min-height: 50px;
+}
+
+.navbar-brand {
+    height: 50px;          /* força altura igual à navbar */
+    display: flex;
+    align-items: center;   /* centraliza verticalmente */
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-brand img {
+    height: 110px;          /* ajuste ideal */
+    display: block;
+}
+
+.aw-simple-panel img {
+	margin-bottom: 0;
+}
+
+.aw-simple-panel__message {
+	margin-top: 0 !important;
+}
