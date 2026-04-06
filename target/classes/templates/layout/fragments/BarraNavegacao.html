@@ -24,6 +24,10 @@
 	
 			<ul class="nav navbar-nav  navbar-right">
 				<li>
+				    <p class="navbar-text">
+                        <span th:text="${#authentication.principal.usuario.nome}">Usuárioe</span>
+   	               </p>
+				<li>
 					<a th:href="@{/logout}">
 						<em class="fa  fa-sign-out"></em>
 					</a>
