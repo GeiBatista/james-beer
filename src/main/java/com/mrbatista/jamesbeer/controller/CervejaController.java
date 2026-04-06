@@ -54,7 +54,8 @@ public class CervejaController {
 	@PostMapping("/novo")
 	private ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-		return novo(cerveja);
+			throw new RuntimeException("Erro ao cadastrar cerveja");
+//		return novo(cerveja);
 		}
 		cadastroCervejaService.salvar(cerveja);
 		attributes.addFlashAttribute("mensagem", "cerveja salva com sucesso!");
