@@ -11,6 +11,7 @@ import com.mrbatista.jamesbeer.thymeleaf.processor.ClassForErrorAttributeTagProc
 import com.mrbatista.jamesbeer.thymeleaf.processor.MenuAttibuteTagProcessor;
 import com.mrbatista.jamesbeer.thymeleaf.processor.MessageElementTagProcessor;
 import com.mrbatista.jamesbeer.thymeleaf.processor.OrderElementTagProcessor;
+import com.mrbatista.jamesbeer.thymeleaf.processor.PaginationElementTagProcessor;
 
 public class JamesBeerDialect extends AbstractProcessorDialect {
 
@@ -24,6 +25,7 @@ public class JamesBeerDialect extends AbstractProcessorDialect {
 		processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));
 		processadores.add(new MessageElementTagProcessor(dialectPrefix));
 		processadores.add(new OrderElementTagProcessor(dialectPrefix));
+		processadores.add(new PaginationElementTagProcessor(dialectPrefix));
 		processadores.add(new MenuAttibuteTagProcessor(dialectPrefix));
 		
 		return processadores;
