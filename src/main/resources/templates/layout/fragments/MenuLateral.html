@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:jamesbeer="http://www.jamesbeer.com.br/thymeleaf">
@@ -13,6 +13,19 @@
         		<li class="aw-menu__item">
           			<a href="dashboard.html"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
         		</li>
+        		
+        		<li class="aw-menu__item">
+          			<a href="#">
+            			<i class="fa  fa-fw  fa-credit-card"></i><span>Vendas</span>
+            			<i class="aw-menu__navigation-icon  fa"></i>
+          			</a>
+      
+          			<ul class="aw-menu__list  aw-menu__list--sublist">
+			            <li class="aw-menu__item  aw-menu__item--link" jamesbeer:menu="@{/vendas}">
+			            	<a th:href="@{/vendas/nova}">Nova venda</a>
+			            </li>
+                     </ul>
+           		</li>
 
         		<li class="aw-menu__item">
           			<a href="#">
