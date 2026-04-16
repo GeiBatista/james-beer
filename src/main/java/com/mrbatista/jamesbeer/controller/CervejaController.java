@@ -1,5 +1,7 @@
 package com.mrbatista.jamesbeer.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -14,10 +16,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mrbatista.jamesbeer.controller.page.PageWrapper;
+import com.mrbatista.jamesbeer.dto.CervejaDTO;
 import com.mrbatista.jamesbeer.model.Cerveja;
 import com.mrbatista.jamesbeer.model.Origem;
 import com.mrbatista.jamesbeer.model.Sabor;
@@ -73,4 +77,8 @@ public class CervejaController {
 		return mv;
 	}
 	
+	@GetMapping("/filtro")
+	public @ResponseBody List<CervejaDTO> pesquisar(String skuOuNome) {
+		return cervejas.porSkuOuNome(skuOuNome);
+	}
 }
