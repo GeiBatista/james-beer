@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mrbatista.jamesbeer.model.Cerveja;
 import com.mrbatista.jamesbeer.model.ItemVenda;
 
 public class TabelaItensVenda {
@@ -15,6 +16,14 @@ private List<ItemVenda> itens = new ArrayList<>();
 				.map(ItemVenda::getValorTotal)
 				.reduce(BigDecimal::add)
 				.orElse(BigDecimal.ZERO);
+	}
+	
+	public void adicionarItem(Cerveja cerveja, Integer quantidade) {
+		ItemVenda itemVenda = new ItemVenda();
+		itemVenda.setCerveja(cerveja);
+		itemVenda.setQuantidade(quantidade);
+		itemVenda.setValorUnitario(cerveja.getValor());
+		itens.add(itemVenda);
 	}
 
 }
