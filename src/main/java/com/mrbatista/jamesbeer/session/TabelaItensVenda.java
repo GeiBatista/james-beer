@@ -34,5 +34,9 @@ private List<ItemVenda> itens = new ArrayList<>();
 	public int total() {
 		return itens.size();
 	}
+	
+	public Object getItens() {
+		return itens;
+	}
 
 }
