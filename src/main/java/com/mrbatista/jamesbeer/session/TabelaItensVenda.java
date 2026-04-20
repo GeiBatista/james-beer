@@ -1,12 +1,17 @@
-package com.mrbatista.jamesbeer.venda;
+package com.mrbatista.jamesbeer.session;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
+
 import com.mrbatista.jamesbeer.model.Cerveja;
 import com.mrbatista.jamesbeer.model.ItemVenda;
 
+@SessionScope
+@Component
 public class TabelaItensVenda {
 	
 private List<ItemVenda> itens = new ArrayList<>();
@@ -24,6 +29,10 @@ private List<ItemVenda> itens = new ArrayList<>();
 		itemVenda.setQuantidade(quantidade);
 		itemVenda.setValorUnitario(cerveja.getValor());
 		itens.add(itemVenda);
+	}
+	
+	public int total() {
+		return itens.size();
 	}
 
 }

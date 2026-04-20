@@ -42,12 +42,13 @@ import com.mrbatista.jamesbeer.controller.converter.CidadeConverter;
 import com.mrbatista.jamesbeer.controller.converter.EstadoConverter;
 import com.mrbatista.jamesbeer.controller.converter.EstiloConverter;
 import com.mrbatista.jamesbeer.controller.converter.GrupoConverter;
+import com.mrbatista.jamesbeer.session.TabelaItensVenda;
 import com.mrbatista.jamesbeer.thymeleaf.JamesBeerDialect;
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = CervejaController.class)
+@ComponentScan(basePackageClasses = {CervejaController.class, TabelaItensVenda.class})
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching

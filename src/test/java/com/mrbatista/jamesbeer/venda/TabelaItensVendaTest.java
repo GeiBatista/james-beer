@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.mrbatista.jamesbeer.model.Cerveja;
+import com.mrbatista.jamesbeer.session.TabelaItensVenda;
 
 public class TabelaItensVendaTest {
 	
