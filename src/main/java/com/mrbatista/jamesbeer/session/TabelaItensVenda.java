@@ -25,9 +25,7 @@ private List<ItemVenda> itens = new ArrayList<>();
 	}
 	
 	public void adicionarItem(Cerveja cerveja, Integer quantidade) {
-		Optional<ItemVenda> itemVendaOptional = itens.stream()
-		      .filter(i -> i.getCerveja().equals(cerveja))
-		      .findAny();
+		Optional<ItemVenda> itemVendaOptional = buscarItemPorCerveja(cerveja);
 		
 		ItemVenda itemVenda = null;
 		if (itemVendaOptional.isPresent()) {
@@ -41,6 +39,12 @@ private List<ItemVenda> itens = new ArrayList<>();
 		itens.add(0, itemVenda);
 		}
 	}
+
+	
+	public void alterarQuantidadeItens(Cerveja cerveja, Integer quantidade) {
+		ItemVenda itemVenda = buscarItemPorCerveja(cerveja).get();
+		itemVenda.setQuantidade(quantidade);
+	}
 	
 	public int total() {
 		return itens.size();
@@ -48,6 +52,12 @@ private List<ItemVenda> itens = new ArrayList<>();
 	
 	public List<ItemVenda> getItens() {
 		return itens;
+	}
+
+	private Optional<ItemVenda> buscarItemPorCerveja(Cerveja cerveja) {
+		return itens.stream()
+				.filter(i -> i.getCerveja().equals(cerveja))
+				.findAny();
 	}
 
 }
