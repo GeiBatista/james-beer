@@ -25,6 +25,7 @@ JamesBeer.TabelaItens = (function() {
 	function onItemAtualizadoNoServidor(html) {
 			this.tabelaCervejasContainer.html(html);
 			$('.js-tabela-cerveja-quantidade-item').on('change', onQuantidadeItemAlterado.bind(this));
+			$('.js-tabela-item').on('dblclick', onItemRemovido);
 		}
 		
 		function onQuantidadeItemAlterado(evento) {
@@ -42,7 +43,11 @@ JamesBeer.TabelaItens = (function() {
 				
 				resposta.done(onItemAtualizadoNoServidor.bind(this));
 			}
-	
+			
+			function onItemRemovido(evento) {
+				$(this).toggleClass('solicitando-exclusao');
+		}
+				
 	return TabelaItens;
 	
 }());
