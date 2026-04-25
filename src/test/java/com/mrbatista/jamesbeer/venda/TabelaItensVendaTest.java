@@ -76,4 +76,29 @@ public class TabelaItensVendaTest {
 		assertEquals(1, tabelaItensVenda.total());
 		assertEquals(new BigDecimal("50.00"), tabelaItensVenda.getValorTotal());
 	}
+	
+	@Test
+	public void deveExcluirItem() throws Exception {
+		Cerveja cerveja1 = new Cerveja();
+		cerveja1.setCodigo(1L);
+		cerveja1.setValor(new BigDecimal("10.00"));
+	
+		Cerveja cerveja2 = new Cerveja();
+		cerveja2.setCodigo(2L);
+		cerveja2.setValor(new BigDecimal("6.70"));
+	
+		Cerveja cerveja3 = new Cerveja();
+		cerveja3.setCodigo(3L);
+		cerveja3.setValor(new BigDecimal("3.00"));
+		
+		tabelaItensVenda.adicionarItem(cerveja1, 1);
+		tabelaItensVenda.adicionarItem(cerveja2, 2);
+		tabelaItensVenda.adicionarItem(cerveja3, 1);
+	
+		tabelaItensVenda.excluirItem(cerveja2);
+		
+		assertEquals(2, tabelaItensVenda.total());
+		assertEquals(new BigDecimal("13.00"), tabelaItensVenda.getValorTotal());
+	}
+	
 }
