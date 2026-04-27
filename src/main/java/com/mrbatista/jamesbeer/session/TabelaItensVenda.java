@@ -3,20 +3,22 @@ package com.mrbatista.jamesbeer.session;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 
 import com.mrbatista.jamesbeer.model.Cerveja;
 import com.mrbatista.jamesbeer.model.ItemVenda;
 
-@SessionScope
-@Component
-public class TabelaItensVenda {
+
+class TabelaItensVenda {
 	
+private String uuid;	
 private List<ItemVenda> itens = new ArrayList<>();
+
+	public TabelaItensVenda(String uuid) {
+		this.uuid = uuid;
+	}
 	
 	public BigDecimal getValorTotal() {
 		return itens.stream()
@@ -67,5 +69,28 @@ private List<ItemVenda> itens = new ArrayList<>();
 				.filter(i -> i.getCerveja().equals(cerveja))
 				.findAny();
 	}
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(uuid);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TabelaItensVenda other = (TabelaItensVenda) obj;
+		return Objects.equals(uuid, other.uuid);
+	}
+
+	
 
 }
