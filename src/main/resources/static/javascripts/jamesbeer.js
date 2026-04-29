@@ -103,9 +103,14 @@ JamesBeer.Security = (function() {
 	
 }());
 
+numeral.language('pt-br');
+
 JamesBeer.formatarMoeda = function(valor) {
-	numeral.language('pt-br');
 	return numeral(valor).format('0,0.00');
+}
+
+JamesBeer.recuperarValor = function(valorFormatado) {
+	return numeral().unformat(valorFormatado);
 }
 
 $(function() {

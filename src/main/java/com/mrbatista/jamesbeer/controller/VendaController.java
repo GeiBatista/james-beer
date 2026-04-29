@@ -48,7 +48,7 @@ public class VendaController {
 	}
 	
 	@DeleteMapping("/item/{uuid}/{codigoCerveja}")
-	public ModelAndView excluirItem(@PathVariable("codigoCerveja") Cerveja cerveja, @PathVariable("uuid") String uuid) {
+	public ModelAndView excluirItem(@PathVariable("codigoCerveja") Cerveja cerveja, @PathVariable String uuid) {
 		tabelaItens.excluirItem(uuid, cerveja);
 		return mvTabelaItensVenda(uuid);
 	}
@@ -56,6 +56,7 @@ public class VendaController {
 	private ModelAndView mvTabelaItensVenda(String uuid) {
 		ModelAndView mv = new ModelAndView("venda/TabelaItensVenda");
 		mv.addObject("itens", tabelaItens.getItens(uuid));
+		mv.addObject("valorTotal", tabelaItens.getValorTotal(uuid));
 		return mv;
 	}
 }
